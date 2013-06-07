@@ -1,0 +1,85 @@
+html, body {
+    font-family: tahoma,sans,arial;
+    font-size: 12px;
+    margin: 0;
+}
+
+.banner{
+    background: #F1F1F1;
+    color:#666666;
+}
+
+.banner ul{
+    height:30px;
+    list-style:none;
+    margin:0px;
+    padding:0px 15px 0px 15px;
+
+
+}
+
+.banner li{
+    float: left;
+    padding:0px;
+    font-size:12px;
+    border:0px solid red;
+    line-height: 29px;
+}
+
+.banner li:last-child{
+    float:right;
+    line-height: 28px;
+}
+
+.banner .logo{
+    margin:4px 5px 4px 15px;
+    padding:0px;
+}
+
+.banner .title{
+    margin-left:0px;
+}
+
+.banner .user{
+    float: right;
+}
+
+.content-main {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #C7C7C7;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 0 5px #BBBBBB;
+    margin: 10px;
+    padding:0px;
+    min-height: 200px;
+}
+
+.content-header {
+    background: none repeat scroll 0 0 #FAFAFA;
+    border-bottom: 1px solid #C7C7C7;
+    border-radius: 4px 4px 0 0;
+    color: #666666;
+    padding:4px 10px 7px 10px;
+}
+
+.content-header ul {
+    list-style: none outside none;
+    margin:0px;
+    height:22px;
+}
+
+.content-header .content-title{
+    float: left;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.content-header .content-options {
+    float: right;
+    line-height: 24px;
+}
+
+.content-body{
+    margin: 10px;
+
+}
