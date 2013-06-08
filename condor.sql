@@ -282,6 +282,8 @@ SELECT pg_catalog.setval('permisos_roles_id_seq', 1, false);
 --
 
 COPY roles (id, rol) FROM stdin;
+0	Administrador General
+1	Usuario básico
 \.
 
 
@@ -297,6 +299,9 @@ SELECT pg_catalog.setval('roles_id_seq', 1, false);
 --
 
 COPY roles_usuarios (id, rol_fkey, usuario_fkey) FROM stdin;
+1	0	10
+2	1	10
+3	1	11
 \.
 
 
@@ -304,7 +309,7 @@ COPY roles_usuarios (id, rol_fkey, usuario_fkey) FROM stdin;
 -- Name: roles_usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: johel
 --
 
-SELECT pg_catalog.setval('roles_usuarios_id_seq', 1, false);
+SELECT pg_catalog.setval('roles_usuarios_id_seq', 3, true);
 
 
 --
@@ -312,7 +317,7 @@ SELECT pg_catalog.setval('roles_usuarios_id_seq', 1, false);
 --
 
 COPY sessions (session_id, ip_address, user_agent, last_activity, user_data) FROM stdin;
-114113bfe89a942414085878bf023e4d	::1	Mozilla/5.0 (X11; Linux i686; rv:21.0) Gecko/20100101 Firefox/21.0	1370489491	
+c5010b5c057456113886eecf63bfdd40	::1	Mozilla/5.0 (X11; Linux i686; rv:21.0) Gecko/20100101 Firefox/21.0	1370654215	a:1:{s:8:"busqueda";a:1:{s:6:"buscar";s:0:"";}}
 \.
 
 
@@ -322,6 +327,12 @@ COPY sessions (session_id, ip_address, user_agent, last_activity, user_data) FRO
 
 COPY usuarios (id, email, clave, nombre) FROM stdin;
 1	admin@condor.com	e10adc3949ba59abbe56e057f20f883e	Administrador Condor
+2	by_link@hotmail.com	123456	1
+7	cediel@hotmail.com	123456	Johel Cediel
+8	cediel165@hotmail.com	c4ca4238a0b923820dcc509a6f75849b	1
+9	cediel1655@hotmail.com	c4ca4238a0b923820dcc509a6f75849b	1
+10	auyantepui.venezuela@gmail.com	e10adc3949ba59abbe56e057f20f883e	Venerock Net Label
+11	jolibertcarolina@gmail.com	e10adc3949ba59abbe56e057f20f883e	Jolibert Cediel
 \.
 
 
@@ -329,7 +340,7 @@ COPY usuarios (id, email, clave, nombre) FROM stdin;
 -- Name: usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: johel
 --
 
-SELECT pg_catalog.setval('usuarios_id_seq', 1, true);
+SELECT pg_catalog.setval('usuarios_id_seq', 11, true);
 
 
 --
