@@ -80,7 +80,8 @@ $rol = array(
 <div class="form-horizontal">
     <div class="form-actions">
         <?php echo form_submit('', 'Aceptar', 'class="btn btn-info"') ?>
-        <?php echo anchor('users', 'Cancelar', 'class="btn"') ?>
+        <?php echo anchor('users/edit/', 'Cancelar', 'class="btn"') ?>
+
     </div>
 </div>
 

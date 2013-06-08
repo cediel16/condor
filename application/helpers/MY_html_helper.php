@@ -18,7 +18,7 @@ if (!defined('BASEPATH'))
  * @param	boolean	should index_page be added to the css path
  * @return	string
  */
-if (!function_exists('link_tag')) {
+if (!function_exists('is_email_avaible_')) {
 
     function script_tag($src = '', $type = 'text/javascript', $index_page = FALSE) {
         $CI = & get_instance();
@@ -89,6 +89,32 @@ if (!function_exists('status')) {
         }
 
         return label($type, ucfirst($status));
+    }
+
+}
+
+
+if (!function_exists('alert')) {
+
+    function alert($type, $txt, $close_button = TRUE) {
+        switch ($type) {
+            case 'error' : {
+                    $class = 'alert-error';
+                    break;
+                }
+            case 'success' : {
+                    $class = 'alert-success';
+                    break;
+                }
+            case 'info' : {
+                    $class = 'alert-info';
+                    break;
+                }
+        }
+        if ($close_button === TRUE) {
+            $close = '<button class="close" data-dismiss="alert" type="button">×</button>';
+        }
+        return '<div class="alert ' . $class . '">' . $close . '' . $txt . '</div>';
     }
 
 }

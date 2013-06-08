@@ -14,18 +14,6 @@ $email = array(
     'value' => $this->input->post('email')
 );
 
-$pass1 = array(
-    'id' => 'pass1',
-    'name' => 'pass1',
-    'class' => 'span12'
-);
-
-$pass2 = array(
-    'id' => 'pass2',
-    'name' => 'pass2',
-    'class' => 'span12'
-);
-
 $rol = array(
     'id' => 'rol[]',
     'name' => 'rol[]',
@@ -51,20 +39,6 @@ $rol = array(
                 <div class="controls">
                     <?php echo form_input($email) ?>
                     <?php echo form_error($email['name']) ?>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">Contraseña</label>
-                <div class="controls">
-                    <?php echo form_password($pass1) ?>
-                    <?php echo form_error($pass1['name']) ?>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">Confirmar contraseña</label>
-                <div class="controls">
-                    <?php echo form_password($pass2) ?>
-                    <?php echo form_error($pass2['name']) ?>
                 </div>
             </div>
             <div class="control-group">
