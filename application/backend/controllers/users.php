@@ -78,21 +78,29 @@ class Users extends Backend_Controller {
         $this->data['options'] = anchor('users/change_password', '<i class="icon-asterisk"></i><i class="icon-asterisk"></i><i class="icon-asterisk"></i> Cambiar contraseña', 'class="btn btn-mini"');
         $this->form_validation->set_error_delimiters('<div class="text-warning">', '</div>');
         $this->form_validation->set_rules('nombre', 'Nombre', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('email', 'Correo electrónico', 'trim|required|xss_clean|valid_email|callback__avaible_email');
+        $this->form_validation->set_rules('email', 'Correo electrónico', 'trim|required|xss_clean|valid_email|callback__avaible_email_to_edit[' . $this->input->post('user_id') . ']');
         $this->form_validation->set_rules('rol[]', 'Rol', 'trim|required|xss_clean');
         if ($this->form_validation->run()) {
-            if ($this->Users_model->add($this->input->post())) {
+            if ($this->Users_model->edit($this->input->post())) {
                 $this->session->set_flashdata('msj', alert('success', 'Exito...'));
             } else {
                 $this->session->set_flashdata('msj', alert('info', 'Error...'));
             }
-            redirect('users/add');
+            redirect('users/view/' . $this->uri->segment(3));
         }
         $this->data['opt_roles'] = $this->Users_model->opt_roles();
+        $this->data['user'] = $this->Users_model->get_user_by_id($this->uri->segment(3));
         $this->template->load('users/edit', $this->data);
     }
-    
-        public function change_password() {
+
+    public function view() {
+        $this->data['title'] = 'Ver usuario';
+        $this->data['opt_roles'] = $this->Users_model->opt_roles();
+        $this->data['user'] = $this->Users_model->get_user_by_id($this->uri->segment(3));
+        $this->template->load('users/view', $this->data);
+    }
+
+    public function change_password() {
         $this->data['title'] = 'Cambiar contraseña';
         $this->form_validation->set_error_delimiters('<div class="text-warning">', '</div>');
         $this->form_validation->set_rules('nombre', 'Nombre', 'trim|required|xss_clean');
@@ -136,6 +144,12 @@ class Users extends Backend_Controller {
     function _avaible_email($email) {
         $this->form_validation->set_message('_avaible_email', '%s en uso.');
         $rst = $this->db->from('usuarios')->where('email', $email)->get();
+        return !$rst->num_rows() == 1;
+    }
+
+    function _avaible_email_to_edit($email, $userid) {
+        $this->form_validation->set_message('_avaible_email_to_edit', '%s en uso.');
+        $rst = $this->db->from('usuarios')->where('email', $email)->where('id <>', $userid)->get();
         return !$rst->num_rows() == 1;
     }
 

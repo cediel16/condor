@@ -23,7 +23,7 @@ $buscar = array(
             <th class="span4">Correo electrónico</th>
             <th>Roles</th>
             <th class="span2">Status</th>
-            <th class="span1"></th>
+            <th class="span2"></th>
         </tr>
     </thead>
     <tbody>
@@ -38,16 +38,19 @@ $buscar = array(
                 <td></td>
                 <td>Activo</td>
                 <td>
-                    <div class="btn-group pull-right">
-                        <button data-toggle="dropdown" class="btn dropdown-toggle btn-mini">
-                            <i class="icon-cog"></i>
-                        </button>
-                        <ul class="dropdown-menu pull-right">
-                            <li>
-                                <?php echo anchor('users/edit/' . $row->id, '<i class="icon-edit"></i> Editar') ?>
-                            </li>
-                        </ul>
-                    </div>
+                    <span class="pull-right">
+                        <?php echo anchor('users/view/' . $row->id, '<i class="icon-eye-open"></i>','class="btn btn-mini" title="Ver usuario"') ?>
+                        <div class="btn-group">
+                            <button data-toggle="dropdown" class="btn dropdown-toggle btn-mini">
+                                <i class="icon-cog"></i>
+                            </button>
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <?php echo anchor('users/edit/' . $row->id, '<i class="icon-edit"></i> Editar') ?>
+                                </li>
+                            </ul>
+                        </div>
+                    </span>
                 </td>
             </tr>
         <?php } ?>

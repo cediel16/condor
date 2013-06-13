@@ -34,7 +34,8 @@ SET default_with_oids = false;
 
 CREATE TABLE permisos (
     id integer NOT NULL,
-    permiso character varying(80) NOT NULL
+    permiso character varying(80) NOT NULL,
+    descripcion text NOT NULL
 );
 
 
@@ -251,7 +252,19 @@ ALTER TABLE ONLY usuarios ALTER COLUMN id SET DEFAULT nextval('usuarios_id_seq':
 -- Data for Name: permisos; Type: TABLE DATA; Schema: public; Owner: johel
 --
 
-COPY permisos (id, permiso) FROM stdin;
+COPY permisos (id, permiso, descripcion) FROM stdin;
+1	admin.usuarios.acceso	Permite el acceso al modulo de usuarios
+3	admin.usuarios.insertar	Permite añadir un usuario
+4	admin.usuarios.editar	Permite editar los datos un usuario
+5	admin.usuarios.activar	Permite activar un usuario
+6	admin.usuarios.bloquear	Permite bloquear un usuario
+7	admin.roles.acceso	Permite el acceso al modulo de roles
+8	admin.roles.insertar	Permite añadir un rol
+9	admin.roles.editar	Permite editar el nombre del rol
+10	admin.roles.permisos	Permite la asignación de permisos a un rol
+11	admin.permisos.acceso	Permite ingresar al modulo de permisos
+12	admin.permisos.insertar	Permite añadir un permiso
+13	admin.sesion	Permite iniciar sesión en la sección de Administrador
 \.
 
 
@@ -259,7 +272,7 @@ COPY permisos (id, permiso) FROM stdin;
 -- Name: permisos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: johel
 --
 
-SELECT pg_catalog.setval('permisos_id_seq', 1, false);
+SELECT pg_catalog.setval('permisos_id_seq', 13, true);
 
 
 --
@@ -267,6 +280,7 @@ SELECT pg_catalog.setval('permisos_id_seq', 1, false);
 --
 
 COPY permisos_roles (id, permiso_fkey, rol_fkey) FROM stdin;
+2	1	0
 \.
 
 
@@ -274,7 +288,7 @@ COPY permisos_roles (id, permiso_fkey, rol_fkey) FROM stdin;
 -- Name: permisos_roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: johel
 --
 
-SELECT pg_catalog.setval('permisos_roles_id_seq', 1, false);
+SELECT pg_catalog.setval('permisos_roles_id_seq', 3, true);
 
 
 --
@@ -284,6 +298,11 @@ SELECT pg_catalog.setval('permisos_roles_id_seq', 1, false);
 COPY roles (id, rol) FROM stdin;
 0	Administrador General
 1	Usuario básico
+3	Administrador intermedio
+6	Usuario intermedio
+13	asd
+14	usuario basicossss
+2	Administrador básicosssss
 \.
 
 
@@ -291,7 +310,7 @@ COPY roles (id, rol) FROM stdin;
 -- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: johel
 --
 
-SELECT pg_catalog.setval('roles_id_seq', 1, false);
+SELECT pg_catalog.setval('roles_id_seq', 15, true);
 
 
 --
@@ -299,9 +318,12 @@ SELECT pg_catalog.setval('roles_id_seq', 1, false);
 --
 
 COPY roles_usuarios (id, rol_fkey, usuario_fkey) FROM stdin;
-1	0	10
-2	1	10
 3	1	11
+14	0	10
+15	1	10
+19	1	1
+22	0	2
+23	1	2
 \.
 
 
@@ -309,7 +331,7 @@ COPY roles_usuarios (id, rol_fkey, usuario_fkey) FROM stdin;
 -- Name: roles_usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: johel
 --
 
-SELECT pg_catalog.setval('roles_usuarios_id_seq', 3, true);
+SELECT pg_catalog.setval('roles_usuarios_id_seq', 23, true);
 
 
 --
@@ -317,7 +339,7 @@ SELECT pg_catalog.setval('roles_usuarios_id_seq', 3, true);
 --
 
 COPY sessions (session_id, ip_address, user_agent, last_activity, user_data) FROM stdin;
-c5010b5c057456113886eecf63bfdd40	::1	Mozilla/5.0 (X11; Linux i686; rv:21.0) Gecko/20100101 Firefox/21.0	1370654215	a:1:{s:8:"busqueda";a:1:{s:6:"buscar";s:0:"";}}
+91a6580d517f6b0a3fd17a789dfb5db9	::1	Mozilla/5.0 (X11; Linux i686; rv:21.0) Gecko/20100101 Firefox/21.0	1371085126	
 \.
 
 
@@ -326,13 +348,13 @@ c5010b5c057456113886eecf63bfdd40	::1	Mozilla/5.0 (X11; Linux i686; rv:21.0) Geck
 --
 
 COPY usuarios (id, email, clave, nombre) FROM stdin;
-1	admin@condor.com	e10adc3949ba59abbe56e057f20f883e	Administrador Condor
-2	by_link@hotmail.com	123456	1
 7	cediel@hotmail.com	123456	Johel Cediel
 8	cediel165@hotmail.com	c4ca4238a0b923820dcc509a6f75849b	1
 9	cediel1655@hotmail.com	c4ca4238a0b923820dcc509a6f75849b	1
-10	auyantepui.venezuela@gmail.com	e10adc3949ba59abbe56e057f20f883e	Venerock Net Label
 11	jolibertcarolina@gmail.com	e10adc3949ba59abbe56e057f20f883e	Jolibert Cediel
+10	auyantepui.venezuela@gmail.com	e10adc3949ba59abbe56e057f20f883e	Venerock Net Label
+1	admin@condor.com	e10adc3949ba59abbe56e057f20f883e	Administrador Condor
+2	by_link@hotmail.com	123456	Pedro Perez
 \.
 
 
@@ -340,7 +362,7 @@ COPY usuarios (id, email, clave, nombre) FROM stdin;
 -- Name: usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: johel
 --
 
-SELECT pg_catalog.setval('usuarios_id_seq', 11, true);
+SELECT pg_catalog.setval('usuarios_id_seq', 17, true);
 
 
 --
@@ -365,6 +387,8 @@ ALTER TABLE ONLY permisos
 
 ALTER TABLE ONLY permisos_roles
     ADD CONSTRAINT permisos_roles_pkey PRIMARY KEY (id);
+
+ALTER TABLE permisos_roles CLUSTER ON permisos_roles_pkey;
 
 
 --
@@ -413,6 +437,13 @@ ALTER TABLE ONLY usuarios
 
 ALTER TABLE ONLY usuarios
     ADD CONSTRAINT usuarios_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: permisos_roles_permiso_fkey_rol_fkey_idx; Type: INDEX; Schema: public; Owner: johel; Tablespace: 
+--
+
+CREATE UNIQUE INDEX permisos_roles_permiso_fkey_rol_fkey_idx ON permisos_roles USING btree (permiso_fkey, rol_fkey);
 
 
 --

@@ -1,9 +1,13 @@
 <?php
+$user_id = array(
+    'user_id' => $user['id']
+);
+
 $nombre = array(
     'id' => 'nombre',
     'name' => 'nombre',
     'class' => 'span12',
-    'value' => $this->input->post('nombre')
+    'value' => ($this->input->post('nombre') == '') ? $user['nombre'] : $this->input->post('nombre')
 );
 
 $email = array(
@@ -11,19 +15,21 @@ $email = array(
     'name' => 'email',
     'class' => 'span12',
     'placeholder' => 'correo@ejemplo.com',
-    'value' => $this->input->post('email')
+    'value' => ($this->input->post('email') == '') ? $user['email'] : $this->input->post('email')
 );
 
 $rol = array(
     'id' => 'rol[]',
     'name' => 'rol[]',
     'options' => $opt_roles,
-    'selected' => '',
+    'selected' => $user['roles'],
     'extra' => 'class="span12"'
 );
 ?>
 <?php echo $this->session->flashdata('msj'); ?>
 <?php echo form_open() ?>
+<?php echo form_hidden($user_id) ?>
+
 <div class="row-fluid">
     <div class="span6">
         <div class="form-horizontal">
@@ -54,9 +60,8 @@ $rol = array(
 <div class="form-horizontal">
     <div class="form-actions">
         <?php echo form_submit('', 'Aceptar', 'class="btn btn-info"') ?>
-        <?php echo anchor('users', 'Cancelar', 'class="btn"') ?>
+        <?php echo anchor('users/view/'.$user['id'], 'Cancelar', 'class="btn"') ?>
     </div>
 </div>
-
 
 <?php echo form_close() ?>
